@@ -69,6 +69,7 @@ function TrainingPage() {
     if (stoneQty <= 0) { toast.error("No Evolution Stones"); return; }
     setBusy(true);
     setAnimating(true);
+    play("upgrade", 0.7);
     const maxedEvs: EVs = { hp: 252, attack: 252, defense: 252, sp_atk: 252, sp_def: 252, speed: 252 };
     const { error: cErr } = await supabase.from("cards").update({
       evs: maxedEvs as unknown as never,
@@ -103,6 +104,7 @@ function TrainingPage() {
 
     setBusy(true);
     setAnimating(true);
+    play("upgrade", 0.6);
 
     const newEvs: EVs = { ...evs, [focus]: Math.min(EV_PER_STAT_CAP, evs[focus] + EV_GAIN) };
     let newXp = (card.xp ?? 0) + XP_GAIN;
