@@ -10,6 +10,21 @@ import sRedeem from "@/assets/audio/redeem.mp3";
 import sVictory from "@/assets/audio/victory.mp3";
 import sDefeat from "@/assets/audio/defeat.mp3";
 import sHit from "@/assets/audio/hit.mp3";
+import sHitFire from "@/assets/audio/hit_fire.mp3";
+import sHitWater from "@/assets/audio/hit_water.mp3";
+import sHitElectric from "@/assets/audio/hit_electric.mp3";
+import sHitGrass from "@/assets/audio/hit_grass.mp3";
+import sHitPsychic from "@/assets/audio/hit_psychic.mp3";
+import sHitDragon from "@/assets/audio/hit_dragon.mp3";
+import sHitNormal from "@/assets/audio/hit_normal.mp3";
+import sHitIce from "@/assets/audio/hit_ice.mp3";
+import sHitRock from "@/assets/audio/hit_rock.mp3";
+import sSwoosh from "@/assets/audio/swoosh.mp3";
+import sSuperEff from "@/assets/audio/super_effective.mp3";
+import sNotEff from "@/assets/audio/not_effective.mp3";
+import sFaint from "@/assets/audio/faint.mp3";
+import sCrit from "@/assets/audio/crit.mp3";
+import sWind from "@/assets/audio/wind_ambient.mp3";
 
 import mDashboard from "@/assets/audio/music_dashboard.mp3";
 import mBattle from "@/assets/audio/music_battle.mp3";
@@ -27,6 +42,20 @@ export const SFX = {
   victory: sVictory,
   defeat: sDefeat,
   hit: sHit,
+  hitFire: sHitFire,
+  hitWater: sHitWater,
+  hitElectric: sHitElectric,
+  hitGrass: sHitGrass,
+  hitPsychic: sHitPsychic,
+  hitDragon: sHitDragon,
+  hitNormal: sHitNormal,
+  hitIce: sHitIce,
+  hitRock: sHitRock,
+  swoosh: sSwoosh,
+  superEffective: sSuperEff,
+  notEffective: sNotEff,
+  faint: sFaint,
+  crit: sCrit,
 } as const;
 
 export const MUSIC = {
@@ -38,6 +67,29 @@ export const MUSIC = {
 
 export type SfxKey = keyof typeof SFX;
 export type MusicKey = keyof typeof MUSIC;
+
+/** Map a Pokémon move type to its hit SFX key. */
+export function sfxForType(type: string): SfxKey {
+  switch (type) {
+    case "fire": return "hitFire";
+    case "water": return "hitWater";
+    case "ice": return "hitIce";
+    case "electric": return "hitElectric";
+    case "grass":
+    case "bug":
+    case "poison": return "hitGrass";
+    case "psychic":
+    case "ghost":
+    case "fairy":
+    case "dark": return "hitPsychic";
+    case "dragon":
+    case "fighting":
+    case "steel": return "hitDragon";
+    case "rock":
+    case "ground": return "hitRock";
+    default: return "hitNormal";
+  }
+}
 
 type AudioCtx = {
   play: (key: SfxKey, volume?: number) => void;
