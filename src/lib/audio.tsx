@@ -128,6 +128,9 @@ export function AudioProvider({ children }: { children: ReactNode }) {
       if (musicEl.current && !musicMuted) {
         musicEl.current.play().catch(() => {});
       }
+      if (ambientEl.current && !musicMuted) {
+        ambientEl.current.play().catch(() => {});
+      }
       window.removeEventListener("pointerdown", unlock);
       window.removeEventListener("keydown", unlock);
     };
