@@ -11,6 +11,7 @@ import {
 import appCss from "../styles.css?url";
 import { AuthProvider } from "@/lib/auth";
 import { Toaster } from "@/components/ui/sonner";
+import { RouteTransitionOverlay } from "@/components/RouteTransitionOverlay";
 
 function NotFoundComponent() {
   return (
@@ -118,6 +119,7 @@ function RootComponent() {
       <AuthProvider>
         <Outlet />
         <Toaster />
+        <RouteTransitionOverlay />
       </AuthProvider>
     </QueryClientProvider>
   );
