@@ -77,14 +77,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "Pokeclash V1 Testlive" },
+      { name: "description", content: "A mobile-first responsive game application leveraging Supabase for data management and a custom UI." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "Pokeclash V1 Testlive" },
+      { property: "og:description", content: "A mobile-first responsive game application leveraging Supabase for data management and a custom UI." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Pokeclash V1 Testlive" },
+      { name: "twitter:description", content: "A mobile-first responsive game application leveraging Supabase for data management and a custom UI." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/6546b0fb-42c5-49ea-98c0-e62c0d693af2/id-preview-4e40d887--9f06744d-ace9-46db-b899-fe4700e6c4f6.lovable.app-1778314356958.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/6546b0fb-42c5-49ea-98c0-e62c0d693af2/id-preview-4e40d887--9f06744d-ace9-46db-b899-fe4700e6c4f6.lovable.app-1778314356958.png" },
     ],
     links: [
       {
