@@ -5,6 +5,7 @@ import { useAuth } from "@/lib/auth";
 import { supabase } from "@/lib/supabase";
 import { GameTopBar } from "@/components/GameTopBar";
 import { Button } from "@/components/ui/button";
+import { usePageMusic, useAudio } from "@/lib/audio";
 import { generatePack, TYPE_COLORS, type PokemonCard } from "@/lib/pokemon";
 import { rowToCard, type CardRow } from "@/lib/card-mapper";
 import {
@@ -35,6 +36,8 @@ interface ItemDef { key: string; name: string; description: string; icon: string
 function BattlePage() {
   const { stage: stageParam } = Route.useSearch();
   const { user, profile, refreshProfile, loading } = useAuth();
+  usePageMusic("battle");
+  const { play } = useAudio();
   const nav = useNavigate();
   const [phase, setPhase] = useState<"loading" | "ready" | "matchmaking" | "fight" | "end">("loading");
   const [state, setState] = useState<BattleState | null>(null);
@@ -126,6 +129,7 @@ function BattlePage() {
       const effLabel = eff === 0 ? "no" : eff > 1 ? "weak" : eff < 1 ? "resisted" : null;
       setMfx({ side: "e", type: m.type, name: m.name, effLabel });
       setTimeout(() => setMfx(null), 850);
+      play("hit", 0.55);
     }
 
     const next: BattleState = JSON.parse(JSON.stringify(state));
@@ -186,6 +190,7 @@ function BattlePage() {
   const finish = async (final: BattleState) => {
     if (!user || !profile) { setPhase("end"); return; }
     const won = final.winner === "player";
+    play(won ? "victory" : "defeat", 0.7);
     const stage = stageParam ?? 1;
     const baseCoins = won ? 60 + stage * 15 : 12;
     const remainingHpPct = won

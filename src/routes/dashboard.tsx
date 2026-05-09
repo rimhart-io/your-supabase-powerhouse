@@ -2,6 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/lib/auth";
 import { supabase } from "@/lib/supabase";
+import { usePageMusic } from "@/lib/audio";
 import {
   Swords, Package, Backpack, LayoutGrid, Dumbbell, Trophy, LogOut, Sparkles, Coins,
 } from "lucide-react";
@@ -16,6 +17,7 @@ export const Route = createFileRoute("/dashboard")({
 
 function Dash() {
   const { user, profile, loading, signOut } = useAuth();
+  usePageMusic("dashboard");
   const nav = useNavigate();
   const [counts, setCounts] = useState({ total: 0, unique: 0 });
   const [frameValue, setFrameValue] = useState<string | null>(null);

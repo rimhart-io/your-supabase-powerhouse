@@ -7,6 +7,7 @@ import { GameTopBar } from "@/components/GameTopBar";
 import { PageBackground } from "@/components/PageBackground";
 import bgTraining from "@/assets/bg-training.jpg";
 import { Button } from "@/components/ui/button";
+import { usePageMusic, useAudio } from "@/lib/audio";
 import { rowToCard, type CardRow } from "@/lib/card-mapper";
 import type { PokemonCard, EVs } from "@/lib/pokemon";
 import { Coins, Dumbbell, Sparkles, Heart, Flame, Trophy, Target, Lock, Gem } from "lucide-react";
@@ -40,6 +41,8 @@ const EV_PER_STAT_CAP = 252;
 
 function TrainingPage() {
   const { user, profile, loading, refreshProfile } = useAuth();
+  usePageMusic("training");
+  const { play } = useAudio();
   const nav = useNavigate();
   const [cards, setCards] = useState<(PokemonCard & { id: string })[]>([]);
   const [selected, setSelected] = useState<string | null>(null);
@@ -66,6 +69,7 @@ function TrainingPage() {
     if (stoneQty <= 0) { toast.error("No Evolution Stones"); return; }
     setBusy(true);
     setAnimating(true);
+    play("upgrade", 0.7);
     const maxedEvs: EVs = { hp: 252, attack: 252, defense: 252, sp_atk: 252, sp_def: 252, speed: 252 };
     const { error: cErr } = await supabase.from("cards").update({
       evs: maxedEvs as unknown as never,
@@ -100,6 +104,7 @@ function TrainingPage() {
 
     setBusy(true);
     setAnimating(true);
+    play("upgrade", 0.6);
 
     const newEvs: EVs = { ...evs, [focus]: Math.min(EV_PER_STAT_CAP, evs[focus] + EV_GAIN) };
     let newXp = (card.xp ?? 0) + XP_GAIN;
