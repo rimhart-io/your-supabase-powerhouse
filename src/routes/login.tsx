@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
+import { AuthLayout } from "@/components/AuthLayout";
+import { Mail, Lock, LogIn } from "lucide-react";
 
 export const Route = createFileRoute("/login")({
   head: () => ({ meta: [{ title: "Login — PokéClash" }] }),
@@ -27,25 +29,34 @@ function LoginPage() {
   };
 
   return (
-    <main className="min-h-screen flex items-center justify-center px-4" style={{ background: "var(--gradient-hero)" }}>
-      <form onSubmit={onSubmit} className="w-full max-w-sm bg-card p-8 rounded-2xl border border-border shadow-2xl space-y-5">
-        <div>
-          <h1 className="text-2xl font-black">Welcome back</h1>
-          <p className="text-sm text-muted-foreground">Log in to your trainer account.</p>
+    <AuthLayout>
+      <form onSubmit={onSubmit} className="space-y-5">
+        <div className="text-center">
+          <h2 className="text-2xl font-black">Welcome back, Trainer</h2>
+          <p className="text-sm text-muted-foreground">Log in to continue your journey.</p>
         </div>
         <div className="space-y-2">
           <Label>Email</Label>
-          <Input type="email" required value={email} onChange={e => setEmail(e.target.value)} />
+          <div className="relative">
+            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input type="email" required value={email} onChange={e => setEmail(e.target.value)} className="pl-9" placeholder="ash@pallet.town" />
+          </div>
         </div>
         <div className="space-y-2">
           <Label>Password</Label>
-          <Input type="password" required value={password} onChange={e => setPassword(e.target.value)} />
+          <div className="relative">
+            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input type="password" required value={password} onChange={e => setPassword(e.target.value)} className="pl-9" placeholder="••••••••" />
+          </div>
         </div>
-        <Button type="submit" className="w-full" disabled={loading}>{loading ? "Logging in…" : "Log in"}</Button>
+        <Button type="submit" className="w-full font-bold" disabled={loading}>
+          <LogIn className="h-4 w-4 mr-2" />
+          {loading ? "Logging in…" : "Log in"}
+        </Button>
         <p className="text-sm text-center text-muted-foreground">
-          No account? <Link to="/signup" className="text-primary underline">Sign up</Link>
+          No account? <Link to="/signup" className="text-primary font-semibold underline-offset-4 hover:underline">Sign up</Link>
         </p>
       </form>
-    </main>
+    </AuthLayout>
   );
 }
