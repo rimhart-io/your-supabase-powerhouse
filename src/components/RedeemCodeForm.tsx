@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { Gift } from "lucide-react";
 import { fetchPokemonCard } from "@/lib/pokemon";
 import { cardToInsert } from "@/lib/card-mapper";
+import { useAudio } from "@/lib/audio";
 
 interface CodeRow {
   code: string;
