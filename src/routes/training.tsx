@@ -7,6 +7,7 @@ import { GameTopBar } from "@/components/GameTopBar";
 import { PageBackground } from "@/components/PageBackground";
 import bgTraining from "@/assets/bg-training.jpg";
 import { Button } from "@/components/ui/button";
+import { usePageMusic, useAudio } from "@/lib/audio";
 import { rowToCard, type CardRow } from "@/lib/card-mapper";
 import type { PokemonCard, EVs } from "@/lib/pokemon";
 import { Coins, Dumbbell, Sparkles, Heart, Flame, Trophy, Target, Lock, Gem } from "lucide-react";
@@ -40,6 +41,8 @@ const EV_PER_STAT_CAP = 252;
 
 function TrainingPage() {
   const { user, profile, loading, refreshProfile } = useAuth();
+  usePageMusic("training");
+  const { play } = useAudio();
   const nav = useNavigate();
   const [cards, setCards] = useState<(PokemonCard & { id: string })[]>([]);
   const [selected, setSelected] = useState<string | null>(null);

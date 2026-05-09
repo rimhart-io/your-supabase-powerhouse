@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useAuth } from "@/lib/auth";
 import { GameTopBar } from "@/components/GameTopBar";
 import { PageBackground } from "@/components/PageBackground";
+import { usePageMusic } from "@/lib/audio";
 import bgCampaign from "@/assets/bg-campaign.jpg";
 import { Trophy, Lock, Swords } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -24,6 +25,7 @@ const STAGES = Array.from({ length: 12 }, (_, i) => ({
 
 function Campaign() {
   const { user, profile, loading } = useAuth();
+  usePageMusic("dashboard");
   const nav = useNavigate();
   useEffect(() => { if (!loading && !user) nav({ to: "/login" }); }, [user, loading, nav]);
   if (!user || !profile) return null;
