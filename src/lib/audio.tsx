@@ -94,6 +94,7 @@ export function sfxForType(type: string): SfxKey {
 type AudioCtx = {
   play: (key: SfxKey, volume?: number) => void;
   setMusic: (key: MusicKey | null) => void;
+  setAmbient: (src: string | null, volume?: number) => void;
   muted: boolean;
   musicMuted: boolean;
   toggleMuted: () => void;
@@ -109,6 +110,8 @@ export function AudioProvider({ children }: { children: ReactNode }) {
   const sfxCache = useRef<Map<string, HTMLAudioElement>>(new Map());
   const musicEl = useRef<HTMLAudioElement | null>(null);
   const currentMusic = useRef<MusicKey | null>(null);
+  const ambientEl = useRef<HTMLAudioElement | null>(null);
+  const currentAmbient = useRef<string | null>(null);
 
   // Load prefs
   useEffect(() => {
@@ -186,8 +189,26 @@ export function AudioProvider({ children }: { children: ReactNode }) {
         if (v) musicEl.current.pause();
         else if (unlocked) musicEl.current.play().catch(() => {});
       }
+      if (ambientEl.current) {
+        if (v) ambientEl.current.pause();
+        else if (unlocked) ambientEl.current.play().catch(() => {});
+      }
       return v;
     });
+  };
+
+  const setAmbient = (src: string | null, volume = 0.18) => {
+    if (currentAmbient.current === src) return;
+    currentAmbient.current = src;
+    if (!ambientEl.current) {
+      ambientEl.current = new Audio();
+      ambientEl.current.loop = true;
+    }
+    const el = ambientEl.current;
+    if (!src) { el.pause(); return; }
+    el.src = src;
+    el.volume = volume;
+    if (!musicMuted && unlocked) el.play().catch(() => {});
   };
 
   // Global click sound on buttons / links
@@ -206,7 +227,7 @@ export function AudioProvider({ children }: { children: ReactNode }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [muted]);
 
-  const value = useMemo(() => ({ play, setMusic, muted, musicMuted, toggleMuted, toggleMusic }), [muted, musicMuted, unlocked]);
+  const value = useMemo(() => ({ play, setMusic, setAmbient, muted, musicMuted, toggleMuted, toggleMusic }), [muted, musicMuted, unlocked]);
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
 
@@ -222,4 +243,13 @@ export function usePageMusic(key: MusicKey | null) {
   useEffect(() => {
     setMusic(key);
   }, [key, setMusic]);
+}
+
+/** Convenience hook: play a looping ambient bed (e.g. wind) for the current page. */
+export function usePageAmbient(src: string | null, volume = 0.18) {
+  const { setAmbient } = useAudio();
+  useEffect(() => {
+    setAmbient(src, volume);
+    return () => setAmbient(null);
+  }, [src, volume, setAmbient]);
 }
