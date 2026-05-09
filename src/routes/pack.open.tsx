@@ -126,28 +126,17 @@ function PackOpen() {
               whileTap={{ scale: 0.97 }}
               animate={stage === "shake" ? { x: [0, -8, 8, -6, 6, -4, 4, 0], y: [0, -3, 3, 0], rotate: [0, -2, 2, 0] } : { y: [0, -8, 0] }}
               transition={stage === "shake" ? { duration: 0.9, repeat: 1 } : { duration: 3, repeat: Infinity, ease: "easeInOut" }}
-              className="relative w-60 h-[22rem] sm:w-72 sm:h-[26rem] rounded-3xl overflow-hidden ring-4 ring-white/20"
-              style={{ background: theme.grad, boxShadow: `0 30px 60px -15px ${theme.ring}, 0 0 60px -10px ${theme.ring}` }}
+              className="relative w-60 h-[22rem] sm:w-72 sm:h-[26rem] rounded-3xl overflow-hidden"
+              style={{ filter: `drop-shadow(0 30px 60px ${theme.ring}) drop-shadow(0 0 40px ${theme.ring})` }}
             >
-              <div className="absolute inset-0 opacity-50 mix-blend-overlay" style={{ background: "var(--gradient-holo)" }} />
-              {/* foil pattern */}
-              <div className="absolute inset-0 opacity-20" style={{ background: "repeating-linear-gradient(115deg, transparent 0 20px, white 20px 21px)" }} />
-              <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-12 bg-black/30 backdrop-blur-sm border-y border-white/30 flex items-center justify-center">
-                <div className="font-black text-white tracking-[0.4em] text-sm">RIP HERE ✂</div>
-              </div>
-              <div className="absolute inset-0 flex flex-col items-center justify-between p-7 text-white">
-                <div className="text-center">
-                  <Sparkles className="h-10 w-10 mx-auto mb-2 drop-shadow-lg" />
-                  <div className="font-black tracking-widest text-2xl drop-shadow">POKÉCLASH</div>
-                  <div className="text-[11px] uppercase opacity-90 tracking-[0.3em] mt-1">{type} booster</div>
-                </div>
-                <motion.div className="w-36 h-36 rounded-full bg-white/15 backdrop-blur flex items-center justify-center text-7xl border-2 border-white/40 shadow-2xl"
-                  animate={{ rotate: [0, 360] }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }}>
-                  {theme.emoji}
-                </motion.div>
-                <div className="text-xs uppercase tracking-widest opacity-90 font-bold">
-                  {stage === "idle" ? "Tap to tear open" : "Tearing…"}
-                </div>
+              <img src={PACK_IMAGES[type] ?? PACK_IMAGES.standard} alt={`${type} pack`} className="w-full h-full object-contain select-none pointer-events-none" draggable={false} />
+              {/* holo sweep */}
+              <motion.div className="absolute inset-0 mix-blend-overlay opacity-60 pointer-events-none"
+                style={{ background: "linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.5) 50%, transparent 70%)", backgroundSize: "200% 100%" }}
+                animate={{ backgroundPosition: ["200% 0%", "-100% 0%"] }}
+                transition={{ duration: 3.5, repeat: Infinity, ease: "linear" }} />
+              <div className="absolute bottom-2 inset-x-0 text-center text-[11px] uppercase tracking-widest font-bold text-white/90 drop-shadow">
+                {stage === "idle" ? "Tap to tear open" : "Tearing…"}
               </div>
             </motion.button>
           )}
@@ -156,11 +145,15 @@ function PackOpen() {
             <div className="relative w-60 h-[22rem] sm:w-72 sm:h-[26rem]">
               {/* top half flying away */}
               <motion.div initial={{ y: 0, rotate: 0, opacity: 1 }} animate={{ y: -300, rotate: -35, x: -150, opacity: 0 }} transition={{ duration: 0.9, ease: "easeIn" }}
-                className="absolute inset-0 rounded-3xl overflow-hidden ring-4 ring-white/20"
-                style={{ background: theme.grad, clipPath: "polygon(0 0, 100% 0, 100% 48%, 0 52%)" }} />
+                className="absolute inset-0 overflow-hidden"
+                style={{ clipPath: "polygon(0 0, 100% 0, 100% 48%, 0 52%)" }}>
+                <img src={PACK_IMAGES[type] ?? PACK_IMAGES.standard} alt="" className="w-full h-full object-contain" />
+              </motion.div>
               <motion.div initial={{ y: 0, rotate: 0, opacity: 1 }} animate={{ y: 300, rotate: 30, x: 150, opacity: 0 }} transition={{ duration: 0.9, ease: "easeIn" }}
-                className="absolute inset-0 rounded-3xl overflow-hidden ring-4 ring-white/20"
-                style={{ background: theme.grad, clipPath: "polygon(0 52%, 100% 48%, 100% 100%, 0 100%)" }} />
+                className="absolute inset-0 overflow-hidden"
+                style={{ clipPath: "polygon(0 52%, 100% 48%, 100% 100%, 0 100%)" }}>
+                <img src={PACK_IMAGES[type] ?? PACK_IMAGES.standard} alt="" className="w-full h-full object-contain" />
+              </motion.div>
               {/* sparkles */}
               {[...Array(40)].map((_, i) => (
                 <motion.div key={i} className="absolute w-2 h-2 rounded-full"
