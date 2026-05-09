@@ -7,7 +7,7 @@ import { generatePack, type PokemonCard, RARITY_WEIGHTS } from "@/lib/pokemon";
 import { cardToInsert } from "@/lib/card-mapper";
 import { PokemonCardView } from "@/components/PokemonCard";
 import { Button } from "@/components/ui/button";
-import { AppHeader } from "@/components/AppHeader";
+import { GameTopBar } from "@/components/GameTopBar";
 import { toast } from "sonner";
 import { Sparkles } from "lucide-react";
 import cardBack from "@/assets/card-back.png";
@@ -82,7 +82,7 @@ function PackOpen() {
 
   return (
     <div className="min-h-screen relative overflow-hidden">
-      <AppHeader />
+      <GameTopBar title="Pack" />
       <main className="max-w-6xl mx-auto px-4 py-6 sm:py-10 relative">
         <h1 className="text-2xl sm:text-4xl font-black mb-1 capitalize bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{type} pack</h1>
         <p className="text-sm sm:text-base text-muted-foreground mb-6 sm:mb-8">{theme.subtitle}</p>

@@ -2,7 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/lib/auth";
 import { supabase } from "@/lib/supabase";
-import { AppHeader } from "@/components/AppHeader";
+import { GameTopBar } from "@/components/GameTopBar";
 import { Button } from "@/components/ui/button";
 import { Coins } from "lucide-react";
 import { toast } from "sonner";
@@ -87,7 +87,7 @@ function Items() {
 
   return (
     <div className="min-h-screen">
-      <AppHeader />
+      <GameTopBar title="Items" />
       <main className="max-w-5xl mx-auto px-4 py-8 space-y-10">
         <section>
           <div className="flex items-end justify-between mb-4 flex-wrap gap-2">

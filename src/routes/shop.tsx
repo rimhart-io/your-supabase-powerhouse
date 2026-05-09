@@ -1,7 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/lib/auth";
-import { AppHeader } from "@/components/AppHeader";
+import { GameTopBar } from "@/components/GameTopBar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sparkles, Coins, Gift, Gem } from "lucide-react";
@@ -98,7 +98,7 @@ function Shop() {
 
   return (
     <div className="min-h-screen">
-      <AppHeader />
+      <GameTopBar title="Shop" />
       <main className="max-w-5xl mx-auto px-4 py-10">
         <div className="flex items-end justify-between flex-wrap gap-3 mb-8">
           <div>

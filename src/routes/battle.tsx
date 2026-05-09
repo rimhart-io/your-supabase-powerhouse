@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/lib/auth";
 import { supabase } from "@/lib/supabase";
-import { AppHeader } from "@/components/AppHeader";
+import { GameTopBar } from "@/components/GameTopBar";
 import { Button } from "@/components/ui/button";
 import { generatePack, TYPE_COLORS, type PokemonCard } from "@/lib/pokemon";
 import { rowToCard, type CardRow } from "@/lib/card-mapper";
@@ -231,13 +231,13 @@ function BattlePage() {
   };
 
   if (phase === "loading") {
-    return <div className="min-h-screen"><AppHeader /><main className="p-10 text-center">Loading…</main></div>;
+    return <div className="min-h-screen"><GameTopBar title="Battle" /><main className="p-10 text-center">Loading…</main></div>;
   }
 
   if (phase === "ready" && !state) {
     return (
       <div className="min-h-screen">
-        <AppHeader />
+        <GameTopBar title="Battle" />
         <main className="max-w-2xl mx-auto px-4 py-20 text-center">
           <h1 className="text-2xl font-black mb-3">No loadout yet</h1>
           <p className="text-muted-foreground mb-6">Pick 3 cards in your loadout before battling.</p>
@@ -255,7 +255,7 @@ function BattlePage() {
 
   return (
     <div className="min-h-screen">
-      <AppHeader />
+      <GameTopBar title="Battle" />
       <main className="max-w-6xl mx-auto px-2 sm:px-4 py-3 sm:py-4">
         {phase === "ready" && (
           <div className="text-center my-10">

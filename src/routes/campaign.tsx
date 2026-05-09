@@ -1,7 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { useAuth } from "@/lib/auth";
-import { AppHeader } from "@/components/AppHeader";
+import { GameTopBar } from "@/components/GameTopBar";
 import { Trophy, Lock, Swords } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -30,7 +30,7 @@ function Campaign() {
 
   return (
     <div className="min-h-screen">
-      <AppHeader />
+      <GameTopBar title="Campaign" />
       <main className="max-w-4xl mx-auto px-4 py-8">
         <h1 className="text-3xl font-black mb-1">Campaign</h1>
         <p className="text-muted-foreground mb-8">Climb the ladder. Each trainer is tougher and pays more.</p>
