@@ -5,9 +5,9 @@ import { GameTopBar } from "@/components/GameTopBar";
 import { PageBackground } from "@/components/PageBackground";
 import bgShop from "@/assets/bg-shop.jpg";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Sparkles, Coins, Gift, Gem } from "lucide-react";
+import { Sparkles, Coins, Gem } from "lucide-react";
 import { CosmeticsSection } from "@/components/CosmeticsSection";
+import { RedeemCodeForm } from "@/components/RedeemCodeForm";
 
 const EVOLUTION_STONE_PRICE = 40000;
 const EVOLUTION_STONE_KEY = "evolution_stone";
@@ -28,8 +28,6 @@ const PACKS = [
 function Shop() {
   const { user, profile, loading, refreshProfile } = useAuth();
   const nav = useNavigate();
-  const [code, setCode] = useState("");
-  const [redeeming, setRedeeming] = useState(false);
   const [stoneQty, setStoneQty] = useState(0);
   const [buyingStone, setBuyingStone] = useState(false);
 
@@ -65,35 +63,6 @@ function Shop() {
     if (error) { toast.error(error.message); return; }
     await refreshProfile();
     nav({ to: "/pack/open", search: { type } });
-  };
-
-  const redeem = async () => {
-    if (!user || !profile) return;
-    const c = code.trim().toUpperCase();
-    if (!c) return;
-    setRedeeming(true);
-    const { data, error } = await supabase
-      .from("redeem_codes")
-      .select("*")
-      .eq("code", c)
-      .maybeSingle();
-    if (error || !data) { setRedeeming(false); toast.error("Invalid code"); return; }
-    if (data.used_by) { setRedeeming(false); toast.error("Code already used"); return; }
-    const { error: uErr } = await supabase
-      .from("redeem_codes")
-      .update({ used_by: user.id, used_at: new Date().toISOString() })
-      .eq("code", c)
-      .is("used_by", null);
-    if (uErr) { setRedeeming(false); toast.error("Could not redeem"); return; }
-    const { error: pErr } = await supabase
-      .from("profiles")
-      .update({ coins: profile.coins + data.coins })
-      .eq("id", user.id);
-    setRedeeming(false);
-    if (pErr) { toast.error(pErr.message); return; }
-    setCode("");
-    await refreshProfile();
-    toast.success(`+${data.coins} coins!`);
   };
 
   if (!user || !profile) return null;
@@ -161,23 +130,8 @@ function Shop() {
           </div>
         </section>
 
-        <section className="mt-6 bg-card border border-border rounded-2xl p-6">
-          <div className="flex items-center gap-2 mb-3">
-            <Gift className="h-5 w-5 text-primary" />
-            <h2 className="text-xl font-black">Redeem code</h2>
-          </div>
-          <p className="text-sm text-muted-foreground mb-4">Got a code? Cash it in for free coins.</p>
-          <div className="flex gap-2 flex-wrap">
-            <Input
-              placeholder="ABCDE-12345"
-              value={code}
-              onChange={e => setCode(e.target.value.toUpperCase())}
-              className="max-w-xs font-mono"
-            />
-            <Button onClick={redeem} disabled={redeeming || !code.trim()}>
-              {redeeming ? "Redeeming…" : "Redeem"}
-            </Button>
-          </div>
+        <section className="mt-6 max-w-xl">
+          <RedeemCodeForm />
         </section>
 
         <div className="mt-10">
