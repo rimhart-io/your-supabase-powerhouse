@@ -11,9 +11,10 @@ import { cardToInsert } from "@/lib/card-mapper";
 
 interface CodeRow {
   code: string;
-  coins: number;
+  coins: number | null;
   pokemon_id: number | null;
   used_by: string | null;
+  [key: string]: unknown;
 }
 
 export function RedeemCodeForm({ onRedeemed }: { onRedeemed?: () => void }) {
@@ -29,26 +30,28 @@ export function RedeemCodeForm({ onRedeemed }: { onRedeemed?: () => void }) {
     setBusy(true);
 
     try {
-      // Cast around generated types — pokemon_id was added in a later migration.
-      const codes = supabase.from("redeem_codes") as unknown as {
+      // Use select('*') so we always read every column the DB actually has,
+      // including pokemon_id (added in a later migration). Cast around the
+      // generated types since they don't yet know about pokemon_id.
+      const codesTable = supabase.from("redeem_codes") as unknown as {
         select: (cols: string) => {
           eq: (col: string, val: string) => {
-            maybeSingle: () => Promise<{ data: CodeRow | null; error: Error | null }>;
+            maybeSingle: () => Promise<{ data: CodeRow | null; error: { message: string } | null }>;
           };
         };
         update: (vals: Record<string, unknown>) => {
           eq: (col: string, val: string) => {
             is: (col: string, val: null) => {
               select: (cols: string) => {
-                maybeSingle: () => Promise<{ data: { code: string } | null; error: Error | null }>;
+                maybeSingle: () => Promise<{ data: { code: string } | null; error: { message: string } | null }>;
               };
             };
           };
         };
       };
 
-      const { data: codeRow, error: fetchErr } = await codes
-        .select("code, coins, pokemon_id, used_by")
+      const { data: codeRow, error: fetchErr } = await codesTable
+        .select("*")
         .eq("code", trimmed)
         .maybeSingle();
       if (fetchErr) throw fetchErr;
@@ -61,8 +64,20 @@ export function RedeemCodeForm({ onRedeemed }: { onRedeemed?: () => void }) {
         return;
       }
 
-      const pokemonId = codeRow.pokemon_id ?? null;
+      // Defensive: if PostgREST schema cache hasn't been reloaded after adding
+      // the pokemon_id column, the field will be missing here entirely.
+      if (!("pokemon_id" in codeRow)) {
+        toast.error(
+          "Database is missing the pokemon_id column. Run db/2026-05-09_redeem_pokemon_fix.sql in Supabase.",
+        );
+        console.error("[redeem] codeRow missing pokemon_id:", codeRow);
+        return;
+      }
+
+      const pokemonId =
+        codeRow.pokemon_id != null ? Number(codeRow.pokemon_id) : null;
       const coinAmount = Number(codeRow.coins) || 0;
+      console.log("[redeem] fetched code", { trimmed, pokemonId, coinAmount, codeRow });
 
       if (!pokemonId && coinAmount <= 0) {
         toast.error("This code has no reward attached. Ask the admin to regenerate it.");
@@ -71,14 +86,14 @@ export function RedeemCodeForm({ onRedeemed }: { onRedeemed?: () => void }) {
 
       // If the code grants a pokémon, fetch + insert the card BEFORE claiming the code,
       // so any failure (network, RLS) doesn't burn the code.
-      if (pokemonId) {
+      if (pokemonId && pokemonId > 0) {
         const card = await fetchPokemonCard(pokemonId);
         const { error: cardErr } = await supabase
           .from("cards")
           .insert(cardToInsert(card, user.id));
         if (cardErr) throw cardErr;
 
-        const { data: claimed, error: claimErr } = await codes
+        const { data: claimed, error: claimErr } = await codesTable
           .update({ used_by: user.id, used_at: new Date().toISOString() })
           .eq("code", trimmed)
           .is("used_by", null)
@@ -92,7 +107,7 @@ export function RedeemCodeForm({ onRedeemed }: { onRedeemed?: () => void }) {
         toast.success(`You received ${card.name}!`);
       } else {
         // Coins-only code
-        const { data: claimed, error: claimErr } = await codes
+        const { data: claimed, error: claimErr } = await codesTable
           .update({ used_by: user.id, used_at: new Date().toISOString() })
           .eq("code", trimmed)
           .is("used_by", null)
