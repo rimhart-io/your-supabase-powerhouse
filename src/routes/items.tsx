@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { useAuth } from "@/lib/auth";
 import { supabase } from "@/lib/supabase";
 import { GameTopBar } from "@/components/GameTopBar";
+import { PageBackground } from "@/components/PageBackground";
+import bgItems from "@/assets/bg-items.jpg";
 import { Button } from "@/components/ui/button";
 import { Coins } from "lucide-react";
 import { toast } from "sonner";
@@ -87,6 +89,7 @@ function Items() {
 
   return (
     <div className="min-h-screen">
+      <PageBackground src={bgItems} dim={0.65} />
       <GameTopBar title="Items" />
       <main className="max-w-5xl mx-auto px-4 py-8 space-y-10">
         <section>

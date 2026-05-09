@@ -2,6 +2,8 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/lib/auth";
 import { GameTopBar } from "@/components/GameTopBar";
+import { PageBackground } from "@/components/PageBackground";
+import bgShop from "@/assets/bg-shop.jpg";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sparkles, Coins, Gift, Gem } from "lucide-react";
@@ -98,6 +100,7 @@ function Shop() {
 
   return (
     <div className="min-h-screen">
+      <PageBackground src={bgShop} dim={0.65} />
       <GameTopBar title="Shop" />
       <main className="max-w-5xl mx-auto px-4 py-10">
         <div className="flex items-end justify-between flex-wrap gap-3 mb-8">

@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { useAuth } from "@/lib/auth";
 import { supabase } from "@/lib/supabase";
 import { GameTopBar } from "@/components/GameTopBar";
+import { PageBackground } from "@/components/PageBackground";
+import bgTraining from "@/assets/bg-training.jpg";
 import { Button } from "@/components/ui/button";
 import { rowToCard, type CardRow } from "@/lib/card-mapper";
 import type { PokemonCard, EVs } from "@/lib/pokemon";
@@ -145,6 +147,7 @@ function TrainingPage() {
 
   return (
     <div className="min-h-screen relative">
+      <PageBackground src={bgTraining} dim={0.7} />
       <GameTopBar title="Training" />
       {/* Ambient gym backdrop */}
       <div className="absolute inset-0 -z-10 pointer-events-none opacity-[0.07]"

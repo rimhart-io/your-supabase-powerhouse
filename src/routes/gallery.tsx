@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { useAuth } from "@/lib/auth";
 import { supabase } from "@/lib/supabase";
 import { GameTopBar } from "@/components/GameTopBar";
+import { PageBackground } from "@/components/PageBackground";
+import bgGallery from "@/assets/bg-gallery.jpg";
 import { PokemonCardView } from "@/components/PokemonCard";
 import type { PokemonCard } from "@/lib/pokemon";
 import { rowToCard, type CardRow } from "@/lib/card-mapper";
@@ -70,6 +72,7 @@ function Gallery() {
 
   return (
     <div className="min-h-screen">
+      <PageBackground src={bgGallery} dim={0.65} />
       <GameTopBar title="Gallery" />
       <main className="max-w-6xl mx-auto px-4 py-8">
         <div className="flex justify-between items-end mb-6 flex-wrap gap-4">

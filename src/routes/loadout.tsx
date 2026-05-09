@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { useAuth } from "@/lib/auth";
 import { supabase } from "@/lib/supabase";
 import { GameTopBar } from "@/components/GameTopBar";
+import { PageBackground } from "@/components/PageBackground";
+import bgLoadout from "@/assets/bg-loadout.jpg";
 import { PokemonCardView } from "@/components/PokemonCard";
 import { Button } from "@/components/ui/button";
 import type { PokemonCard } from "@/lib/pokemon";
@@ -56,6 +58,7 @@ function Loadout() {
 
   return (
     <div className="min-h-screen">
+      <PageBackground src={bgLoadout} dim={0.6} />
       <GameTopBar title="Loadout" />
       <main className="max-w-6xl mx-auto px-4 py-8">
         <div className="flex justify-between items-end mb-6 flex-wrap gap-4">

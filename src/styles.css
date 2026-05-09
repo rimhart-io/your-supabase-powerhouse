@@ -250,3 +250,10 @@
 }
 .animate-float { animation: float-y 3.5s ease-in-out infinite; }
 
+/* On themed pages we want cards to feel like glass over the background */
+.bg-card {
+  background: color-mix(in oklab, var(--card) 78%, transparent);
+  backdrop-filter: blur(10px) saturate(140%);
+  -webkit-backdrop-filter: blur(10px) saturate(140%);
+}
+
