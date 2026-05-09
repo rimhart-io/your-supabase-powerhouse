@@ -9,38 +9,295 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TrainingRouteImport } from './routes/training'
+import { Route as SignupRouteImport } from './routes/signup'
+import { Route as ShopRouteImport } from './routes/shop'
+import { Route as OnboardingRouteImport } from './routes/onboarding'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as LoadoutRouteImport } from './routes/loadout'
+import { Route as ItemsRouteImport } from './routes/items'
+import { Route as GalleryRouteImport } from './routes/gallery'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as CampaignRouteImport } from './routes/campaign'
+import { Route as BattleRouteImport } from './routes/battle'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PackOpenRouteImport } from './routes/pack.open'
 
+const TrainingRoute = TrainingRouteImport.update({
+  id: '/training',
+  path: '/training',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShopRoute = ShopRouteImport.update({
+  id: '/shop',
+  path: '/shop',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingRoute = OnboardingRouteImport.update({
+  id: '/onboarding',
+  path: '/onboarding',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoadoutRoute = LoadoutRouteImport.update({
+  id: '/loadout',
+  path: '/loadout',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ItemsRoute = ItemsRouteImport.update({
+  id: '/items',
+  path: '/items',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GalleryRoute = GalleryRouteImport.update({
+  id: '/gallery',
+  path: '/gallery',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CampaignRoute = CampaignRouteImport.update({
+  id: '/campaign',
+  path: '/campaign',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BattleRoute = BattleRouteImport.update({
+  id: '/battle',
+  path: '/battle',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PackOpenRoute = PackOpenRouteImport.update({
+  id: '/pack/open',
+  path: '/pack/open',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/battle': typeof BattleRoute
+  '/campaign': typeof CampaignRoute
+  '/dashboard': typeof DashboardRoute
+  '/gallery': typeof GalleryRoute
+  '/items': typeof ItemsRoute
+  '/loadout': typeof LoadoutRoute
+  '/login': typeof LoginRoute
+  '/onboarding': typeof OnboardingRoute
+  '/shop': typeof ShopRoute
+  '/signup': typeof SignupRoute
+  '/training': typeof TrainingRoute
+  '/pack/open': typeof PackOpenRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/battle': typeof BattleRoute
+  '/campaign': typeof CampaignRoute
+  '/dashboard': typeof DashboardRoute
+  '/gallery': typeof GalleryRoute
+  '/items': typeof ItemsRoute
+  '/loadout': typeof LoadoutRoute
+  '/login': typeof LoginRoute
+  '/onboarding': typeof OnboardingRoute
+  '/shop': typeof ShopRoute
+  '/signup': typeof SignupRoute
+  '/training': typeof TrainingRoute
+  '/pack/open': typeof PackOpenRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/battle': typeof BattleRoute
+  '/campaign': typeof CampaignRoute
+  '/dashboard': typeof DashboardRoute
+  '/gallery': typeof GalleryRoute
+  '/items': typeof ItemsRoute
+  '/loadout': typeof LoadoutRoute
+  '/login': typeof LoginRoute
+  '/onboarding': typeof OnboardingRoute
+  '/shop': typeof ShopRoute
+  '/signup': typeof SignupRoute
+  '/training': typeof TrainingRoute
+  '/pack/open': typeof PackOpenRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/battle'
+    | '/campaign'
+    | '/dashboard'
+    | '/gallery'
+    | '/items'
+    | '/loadout'
+    | '/login'
+    | '/onboarding'
+    | '/shop'
+    | '/signup'
+    | '/training'
+    | '/pack/open'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/admin'
+    | '/battle'
+    | '/campaign'
+    | '/dashboard'
+    | '/gallery'
+    | '/items'
+    | '/loadout'
+    | '/login'
+    | '/onboarding'
+    | '/shop'
+    | '/signup'
+    | '/training'
+    | '/pack/open'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/battle'
+    | '/campaign'
+    | '/dashboard'
+    | '/gallery'
+    | '/items'
+    | '/loadout'
+    | '/login'
+    | '/onboarding'
+    | '/shop'
+    | '/signup'
+    | '/training'
+    | '/pack/open'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
+  BattleRoute: typeof BattleRoute
+  CampaignRoute: typeof CampaignRoute
+  DashboardRoute: typeof DashboardRoute
+  GalleryRoute: typeof GalleryRoute
+  ItemsRoute: typeof ItemsRoute
+  LoadoutRoute: typeof LoadoutRoute
+  LoginRoute: typeof LoginRoute
+  OnboardingRoute: typeof OnboardingRoute
+  ShopRoute: typeof ShopRoute
+  SignupRoute: typeof SignupRoute
+  TrainingRoute: typeof TrainingRoute
+  PackOpenRoute: typeof PackOpenRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/training': {
+      id: '/training'
+      path: '/training'
+      fullPath: '/training'
+      preLoaderRoute: typeof TrainingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/shop': {
+      id: '/shop'
+      path: '/shop'
+      fullPath: '/shop'
+      preLoaderRoute: typeof ShopRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding': {
+      id: '/onboarding'
+      path: '/onboarding'
+      fullPath: '/onboarding'
+      preLoaderRoute: typeof OnboardingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/loadout': {
+      id: '/loadout'
+      path: '/loadout'
+      fullPath: '/loadout'
+      preLoaderRoute: typeof LoadoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/items': {
+      id: '/items'
+      path: '/items'
+      fullPath: '/items'
+      preLoaderRoute: typeof ItemsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gallery': {
+      id: '/gallery'
+      path: '/gallery'
+      fullPath: '/gallery'
+      preLoaderRoute: typeof GalleryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/campaign': {
+      id: '/campaign'
+      path: '/campaign'
+      fullPath: '/campaign'
+      preLoaderRoute: typeof CampaignRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/battle': {
+      id: '/battle'
+      path: '/battle'
+      fullPath: '/battle'
+      preLoaderRoute: typeof BattleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +305,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pack/open': {
+      id: '/pack/open'
+      path: '/pack/open'
+      fullPath: '/pack/open'
+      preLoaderRoute: typeof PackOpenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
+  BattleRoute: BattleRoute,
+  CampaignRoute: CampaignRoute,
+  DashboardRoute: DashboardRoute,
+  GalleryRoute: GalleryRoute,
+  ItemsRoute: ItemsRoute,
+  LoadoutRoute: LoadoutRoute,
+  LoginRoute: LoginRoute,
+  OnboardingRoute: OnboardingRoute,
+  ShopRoute: ShopRoute,
+  SignupRoute: SignupRoute,
+  TrainingRoute: TrainingRoute,
+  PackOpenRoute: PackOpenRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
