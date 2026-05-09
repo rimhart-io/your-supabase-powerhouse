@@ -12,6 +12,8 @@ import appCss from "../styles.css?url";
 import { AuthProvider } from "@/lib/auth";
 import { Toaster } from "@/components/ui/sonner";
 import { RouteTransitionOverlay } from "@/components/RouteTransitionOverlay";
+import { AudioProvider } from "@/lib/audio";
+import { SoundToggle } from "@/components/SoundToggle";
 
 function NotFoundComponent() {
   return (
@@ -117,9 +119,12 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <Outlet />
-        <Toaster />
-        <RouteTransitionOverlay />
+        <AudioProvider>
+          <Outlet />
+          <Toaster />
+          <RouteTransitionOverlay />
+          <SoundToggle />
+        </AudioProvider>
       </AuthProvider>
     </QueryClientProvider>
   );
