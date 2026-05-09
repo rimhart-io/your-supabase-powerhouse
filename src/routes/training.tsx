@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useAuth } from "@/lib/auth";
 import { supabase } from "@/lib/supabase";
-import { AppHeader } from "@/components/AppHeader";
+import { GameTopBar } from "@/components/GameTopBar";
 import { Button } from "@/components/ui/button";
 import { rowToCard, type CardRow } from "@/lib/card-mapper";
 import type { PokemonCard, EVs } from "@/lib/pokemon";

@@ -7,7 +7,7 @@ import { generatePack, type PokemonCard, RARITY_WEIGHTS } from "@/lib/pokemon";
 import { cardToInsert } from "@/lib/card-mapper";
 import { PokemonCardView } from "@/components/PokemonCard";
 import { Button } from "@/components/ui/button";
-import { AppHeader } from "@/components/AppHeader";
+import { GameTopBar } from "@/components/GameTopBar";
 import { toast } from "sonner";
 import { Sparkles } from "lucide-react";
 import cardBack from "@/assets/card-back.png";
