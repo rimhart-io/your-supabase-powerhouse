@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { GameTopBar } from "@/components/GameTopBar";
 import { PageBackground } from "@/components/PageBackground";
 import bgPack from "@/assets/bg-pack.jpg";
+import { usePageMusic, useAudio } from "@/lib/audio";
 import { toast } from "sonner";
 import { Sparkles } from "lucide-react";
 import cardBack from "@/assets/card-back.png";
@@ -39,6 +40,8 @@ const PACK_THEMES: Record<string, { grad: string; ring: string; emoji: string; s
 function PackOpen() {
   const { type } = Route.useSearch();
   const { user, profile, refreshProfile, loading } = useAuth();
+  usePageMusic("pack");
+  const { play } = useAudio();
   const nav = useNavigate();
   const [stage, setStage] = useState<"idle" | "shake" | "burst" | "reveal">("idle");
   const [cards, setCards] = useState<PokemonCard[]>([]);
@@ -54,6 +57,7 @@ function PackOpen() {
   const tear = async () => {
     if (!user) return;
     setStage("shake");
+    play("packTear", 0.7);
     try {
       const pack = await generatePack(PACK_WEIGHTS[type] ?? RARITY_WEIGHTS, 3);
       const rows = pack.map(c => cardToInsert(c, user.id));
@@ -65,7 +69,7 @@ function PackOpen() {
       await refreshProfile();
       setCards(pack);
       setFlipped(pack.map(() => false));
-      setTimeout(() => setStage("burst"), 1100);
+      setTimeout(() => { setStage("burst"); play("packBurst", 0.8); }, 1100);
       setTimeout(() => setStage("reveal"), 2000);
     } catch (e) {
       toast.error((e as Error).message);
@@ -78,7 +82,10 @@ function PackOpen() {
     if (stage !== "reveal" || cards.length === 0) return;
     cards.forEach((_, i) => {
       const delay = i * 250 + 700; // matches entry stagger + a beat
-      setTimeout(() => setFlipped(f => f.map((v, idx) => idx === i ? true : v)), delay);
+      setTimeout(() => {
+        setFlipped(f => f.map((v, idx) => idx === i ? true : v));
+        play("cardFlip", 0.6);
+      }, delay);
     });
   }, [stage, cards]);
 
