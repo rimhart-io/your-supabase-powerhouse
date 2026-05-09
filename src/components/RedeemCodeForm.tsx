@@ -19,6 +19,7 @@ interface CodeRow {
 }
 
 export function RedeemCodeForm({ onRedeemed }: { onRedeemed?: () => void }) {
+  const { play } = useAudio();
   const { user, profile, refreshProfile } = useAuth();
   const [code, setCode] = useState("");
   const [busy, setBusy] = useState(false);
@@ -105,6 +106,7 @@ export function RedeemCodeForm({ onRedeemed }: { onRedeemed?: () => void }) {
           toast.error("Code was just claimed by someone else");
           return;
         }
+        play("redeem", 0.8);
         toast.success(`You received ${card.name}!`);
       } else {
         // Coins-only code
@@ -125,6 +127,7 @@ export function RedeemCodeForm({ onRedeemed }: { onRedeemed?: () => void }) {
             .update({ coins: profile.coins + coinAmount })
             .eq("id", user.id);
           if (profErr) throw profErr;
+          play("redeem", 0.7);
           toast.success(`+${coinAmount} coins`);
         }
       }
