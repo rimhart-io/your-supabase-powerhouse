@@ -5,7 +5,8 @@ import { useAuth } from "@/lib/auth";
 import { supabase } from "@/lib/supabase";
 import { GameTopBar } from "@/components/GameTopBar";
 import { Button } from "@/components/ui/button";
-import { usePageMusic, useAudio } from "@/lib/audio";
+import { usePageMusic, useAudio, usePageAmbient, sfxForType } from "@/lib/audio";
+import windAmbient from "@/assets/audio/wind_ambient.mp3";
 import { generatePack, TYPE_COLORS, type PokemonCard } from "@/lib/pokemon";
 import { rowToCard, type CardRow } from "@/lib/card-mapper";
 import {
@@ -37,6 +38,7 @@ function BattlePage() {
   const { stage: stageParam } = Route.useSearch();
   const { user, profile, refreshProfile, loading } = useAuth();
   usePageMusic("battle");
+  usePageAmbient(windAmbient, 0.12);
   const { play } = useAudio();
   const nav = useNavigate();
   const [phase, setPhase] = useState<"loading" | "ready" | "matchmaking" | "fight" | "end">("loading");
@@ -129,7 +131,12 @@ function BattlePage() {
       const effLabel = eff === 0 ? "no" : eff > 1 ? "weak" : eff < 1 ? "resisted" : null;
       setMfx({ side: "e", type: m.type, name: m.name, effLabel });
       setTimeout(() => setMfx(null), 850);
-      play("hit", 0.55);
+      play("swoosh", 0.4);
+      setTimeout(() => {
+        play(sfxForType(m.type), 0.6);
+        if (eff > 1) play("superEffective", 0.55);
+        else if (eff > 0 && eff < 1) play("notEffective", 0.5);
+      }, 220);
     }
 
     const next: BattleState = JSON.parse(JSON.stringify(state));
@@ -140,7 +147,10 @@ function BattlePage() {
     // Track who knocked out whom for round counter
     const enemyKO = !state.enemy.team[state.enemy.active].fainted && next.enemy.team.every(t => t.fainted || t.id !== state.enemy.team[state.enemy.active].id ? t.fainted : false);
     const enemyJustFainted = state.enemy.team[state.enemy.active].currentHp > 0 && next.enemy.team[state.enemy.active]?.fainted;
-    if (enemyJustFainted) setRounds(r => ({ ...r, player: r.player + 1 }));
+    if (enemyJustFainted) {
+      setRounds(r => ({ ...r, player: r.player + 1 }));
+      setTimeout(() => play("faint", 0.6), 400);
+    }
 
     setState(next);
 
@@ -170,11 +180,20 @@ function BattlePage() {
           const effLabel = eff === 0 ? "no" : eff > 1 ? "weak" : eff < 1 ? "resisted" : null;
           setMfx({ side: "p", type: em.type, name: em.name, effLabel });
           setTimeout(() => setMfx(null), 850);
+          play("swoosh", 0.4);
+          setTimeout(() => {
+            play(sfxForType(em.type), 0.6);
+            if (eff > 1) play("superEffective", 0.55);
+            else if (eff > 0 && eff < 1) play("notEffective", 0.5);
+          }, 220);
         }
         executeAction(after, "enemy", enemyAction);
         postAction(after);
         const playerJustFainted = curr.player.team[curr.player.active].currentHp > 0 && after.player.team[curr.player.active]?.fainted;
-        if (playerJustFainted) setRounds(r => ({ ...r, enemy: r.enemy + 1 }));
+        if (playerJustFainted) {
+          setRounds(r => ({ ...r, enemy: r.enemy + 1 }));
+          setTimeout(() => play("faint", 0.6), 400);
+        }
         // End-of-round chip / weather only after both sides moved
         tickRound(after);
         flashFx(after, prevP, prevE);
