@@ -250,6 +250,51 @@
 }
 .animate-float { animation: float-y 3.5s ease-in-out infinite; }
 
+/* ===== Pokéball loading spinner ===== */
+@keyframes pokeball-spin {
+  0%   { transform: rotate(0deg); }
+  45%  { transform: rotate(360deg); }
+  55%  { transform: rotate(360deg); }
+  100% { transform: rotate(720deg); }
+}
+@keyframes pokeball-bounce {
+  0%,100% { transform: translateY(0); }
+  50%     { transform: translateY(-14px); }
+}
+@keyframes pokeball-glow {
+  0%,100% { box-shadow: 0 0 0 0 rgba(255,80,80,0.6); }
+  50%     { box-shadow: 0 0 30px 8px rgba(255,80,80,0.25); }
+}
+.pokeball-loader {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  animation: pokeball-bounce 1.2s ease-in-out infinite;
+}
+.pokeball-loader .ball {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background:
+    linear-gradient(180deg, #ee1c25 0%, #ee1c25 47%, #1a1a1a 47%, #1a1a1a 53%, #f5f5f5 53%, #f5f5f5 100%);
+  border: 4px solid #1a1a1a;
+  box-shadow:
+    inset -8px -10px 18px rgba(0,0,0,0.35),
+    inset 8px 10px 14px rgba(255,255,255,0.25),
+    0 10px 25px -8px rgba(0,0,0,0.6);
+  animation: pokeball-spin 1.4s cubic-bezier(0.6,0.05,0.4,0.95) infinite;
+}
+.pokeball-loader .center {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 28px; height: 28px;
+  transform: translate(-50%, -50%);
+  border-radius: 9999px;
+  background: radial-gradient(circle at 35% 35%, #fff 0 30%, #ddd 35%, #888 70%, #444 100%);
+  border: 4px solid #1a1a1a;
+  animation: pokeball-glow 1.2s ease-in-out infinite;
+}
+
 /* On themed pages we want cards to feel like glass over the background */
 .bg-card {
   background: color-mix(in oklab, var(--card) 78%, transparent);
