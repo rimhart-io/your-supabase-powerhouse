@@ -5,9 +5,12 @@ import { GameTopBar } from "@/components/GameTopBar";
 import { PageBackground } from "@/components/PageBackground";
 import bgShop from "@/assets/bg-shop.jpg";
 import { Button } from "@/components/ui/button";
-import { Sparkles, Coins, Gem } from "lucide-react";
+import { Coins, Gem } from "lucide-react";
 import { CosmeticsSection } from "@/components/CosmeticsSection";
 import { RedeemCodeForm } from "@/components/RedeemCodeForm";
+import packStandard from "@/assets/pack-standard.png";
+import packPremium from "@/assets/pack-premium.png";
+import packLegendary from "@/assets/pack-legendary.png";
 
 const EVOLUTION_STONE_PRICE = 40000;
 const EVOLUTION_STONE_KEY = "evolution_stone";
@@ -20,9 +23,9 @@ export const Route = createFileRoute("/shop")({
 });
 
 const PACKS = [
-  { type: "standard", name: "Standard Pack", price: 100, desc: "3 cards · balanced odds", grad: "linear-gradient(135deg, oklch(0.5 0.15 230), oklch(0.4 0.15 280))" },
-  { type: "premium", name: "Premium Pack", price: 250, desc: "3 cards · better rares", grad: "linear-gradient(135deg, oklch(0.6 0.2 300), oklch(0.45 0.2 340))" },
-  { type: "legendary", name: "Legendary Pack", price: 500, desc: "3 cards · epics + legendaries", grad: "linear-gradient(135deg, oklch(0.75 0.18 85), oklch(0.55 0.2 25))" },
+  { type: "standard", name: "Standard Pack", price: 100, desc: "3 cards · balanced odds", img: packStandard, glow: "oklch(0.78 0.18 230)" },
+  { type: "premium", name: "Premium Pack", price: 250, desc: "3 cards · better rares", img: packPremium, glow: "oklch(0.85 0.20 330)" },
+  { type: "legendary", name: "Legendary Pack", price: 500, desc: "3 cards · epics + legendaries", img: packLegendary, glow: "oklch(0.90 0.20 60)" },
 ];
 
 function Shop() {
@@ -85,9 +88,10 @@ function Shop() {
         <div className="grid md:grid-cols-3 gap-5">
           {PACKS.map(p => (
             <div key={p.type} className="rounded-2xl border border-border overflow-hidden bg-card flex flex-col">
-              <div className="h-44 relative flex items-center justify-center" style={{ background: p.grad }}>
-                <Sparkles className="h-16 w-16 text-white/90 drop-shadow" />
-                <div className="absolute bottom-2 right-3 text-[10px] uppercase tracking-widest text-white/80">{p.type}</div>
+              <div className="h-56 relative flex items-center justify-center bg-gradient-to-b from-background/40 to-background overflow-hidden">
+                <div className="absolute inset-0 opacity-40 pointer-events-none"
+                  style={{ background: `radial-gradient(circle at 50% 60%, ${p.glow}, transparent 65%)` }} />
+                <img src={p.img} alt={`${p.name} art`} loading="lazy" className="relative h-52 w-auto object-contain drop-shadow-2xl transition-transform duration-300 hover:-translate-y-1 hover:scale-105" />
               </div>
               <div className="p-5 flex-1 flex flex-col">
                 <div className="font-black text-lg">{p.name}</div>
