@@ -145,7 +145,7 @@ function TrainingPage() {
 
   return (
     <div className="min-h-screen relative">
-      <AppHeader />
+      <GameTopBar title="Training" />
       {/* Ambient gym backdrop */}
       <div className="absolute inset-0 -z-10 pointer-events-none opacity-[0.07]"
         style={{ backgroundImage: "radial-gradient(circle at 20% 10%, oklch(0.7 0.25 30) 0%, transparent 40%), radial-gradient(circle at 85% 90%, oklch(0.65 0.25 250) 0%, transparent 45%)" }} />

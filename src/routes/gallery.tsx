@@ -70,7 +70,7 @@ function Gallery() {
 
   return (
     <div className="min-h-screen">
-      <AppHeader />
+      <GameTopBar title="Gallery" />
       <main className="max-w-6xl mx-auto px-4 py-8">
         <div className="flex justify-between items-end mb-6 flex-wrap gap-4">
           <div>

@@ -87,7 +87,7 @@ function Items() {
 
   return (
     <div className="min-h-screen">
-      <AppHeader />
+      <GameTopBar title="Items" />
       <main className="max-w-5xl mx-auto px-4 py-8 space-y-10">
         <section>
           <div className="flex items-end justify-between mb-4 flex-wrap gap-2">
