@@ -13,7 +13,6 @@ import { AuthProvider } from "@/lib/auth";
 import { Toaster } from "@/components/ui/sonner";
 import { RouteTransitionOverlay } from "@/components/RouteTransitionOverlay";
 import { AudioProvider } from "@/lib/audio";
-import { SoundToggle } from "@/components/SoundToggle";
 
 function NotFoundComponent() {
   return (
@@ -127,7 +126,6 @@ function RootComponent() {
           <Outlet />
           <Toaster />
           <RouteTransitionOverlay />
-          <SoundToggle />
         </AudioProvider>
       </AuthProvider>
     </QueryClientProvider>
