@@ -6,7 +6,6 @@ import { supabase } from "@/lib/supabase";
 import { GameTopBar } from "@/components/GameTopBar";
 import { Button } from "@/components/ui/button";
 import { usePageMusic, useAudio, usePageAmbient, sfxForType } from "@/lib/audio";
-import windAmbient from "@/assets/audio/wind_ambient.mp3";
 import { generatePack, TYPE_COLORS, type PokemonCard } from "@/lib/pokemon";
 import { rowToCard, type CardRow } from "@/lib/card-mapper";
 import {
@@ -38,7 +37,7 @@ function BattlePage() {
   const { stage: stageParam } = Route.useSearch();
   const { user, profile, refreshProfile, loading } = useAuth();
   usePageMusic("battle");
-  usePageAmbient(windAmbient, 0.12);
+  usePageAmbient(null);
   const { play } = useAudio();
   const nav = useNavigate();
   const [phase, setPhase] = useState<"loading" | "ready" | "matchmaking" | "fight" | "end">("loading");
