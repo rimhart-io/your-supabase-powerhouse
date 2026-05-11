@@ -6,7 +6,7 @@ import { usePageMusic } from "@/lib/audio";
 import {
   Swords, Package, Backpack, LayoutGrid, Dumbbell, Trophy, LogOut, Sparkles, Coins,
 } from "lucide-react";
-import gameBg from "@/assets/game-bg.png";
+import gameBg from "@/assets/game-bg.jpg";
 
 const sb = supabase as unknown as { from: (t: string) => any };
 
