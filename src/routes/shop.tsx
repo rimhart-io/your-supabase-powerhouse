@@ -83,7 +83,7 @@ function Shop() {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-5">
+        <div className="grid md:grid-cols-2 gap-5 max-w-3xl">
           {PACKS.map(p => (
             <div key={p.type} className="rounded-2xl border border-border overflow-hidden bg-card flex flex-col">
               <div className="h-56 relative flex items-center justify-center bg-gradient-to-b from-background/40 to-background overflow-hidden">
