@@ -12,15 +12,13 @@ import { PageBackground } from "@/components/PageBackground";
 import bgPack from "@/assets/bg-pack.jpg";
 import { usePageMusic, useAudio } from "@/lib/audio";
 import { toast } from "sonner";
-import cardBack from "@/assets/card-back.png";
-import packStarter from "@/assets/pack-starter.png";
-import packStandard from "@/assets/pack-standard.png";
-import packPremium from "@/assets/pack-premium.png";
-import packLegendary from "@/assets/pack-legendary.png";
+import cardBack from "@/assets/card-back.jpg";
+import packStarter from "@/assets/pack-starter.webp";
+import packPremium from "@/assets/pack-premium.webp";
+import packLegendary from "@/assets/pack-legendary.webp";
 
 const PACK_IMAGES: Record<string, string> = {
   starter: packStarter,
-  standard: packStandard,
   premium: packPremium,
   legendary: packLegendary,
 };
