@@ -14,8 +14,7 @@ import {
 } from "@/lib/battle-engine";
 import { cn } from "@/lib/utils";
 import { Shield, Swords, FlaskConical, Repeat, Heart, Zap, Crosshair, Sparkles } from "lucide-react";
-import arenaLava from "@/assets/arena-lava.png";
-import arenaMeadow from "@/assets/arena-meadow.png";
+import arenaMeadow from "@/assets/arena-meadow.jpg";
 import { MoveFx, TYPE_ICON, type MoveFxData } from "@/components/MoveFx";
 import { effectiveness } from "@/lib/pokemon";
 
