@@ -56,7 +56,7 @@ function PackOpen() {
   const [revealed, setRevealed] = useState(0);
   const [flipped, setFlipped] = useState<boolean[]>([]);
 
-  const theme = PACK_THEMES[type] ?? PACK_THEMES.standard;
+  const theme = PACK_THEMES[type] ?? PACK_THEMES.premium;
 
   useEffect(() => {
     if (!loading && !user) nav({ to: "/login" });
@@ -126,7 +126,7 @@ function PackOpen() {
               className="relative w-60 h-[22rem] sm:w-72 sm:h-[26rem] rounded-3xl overflow-hidden"
               style={{ filter: `drop-shadow(0 30px 60px ${theme.ring}) drop-shadow(0 0 40px ${theme.ring})` }}
             >
-              <img src={PACK_IMAGES[type] ?? PACK_IMAGES.standard} alt={`${type} pack`} className="w-full h-full object-contain select-none pointer-events-none" draggable={false} />
+              <img src={PACK_IMAGES[type] ?? PACK_IMAGES.premium} alt={`${type} pack`} className="w-full h-full object-contain select-none pointer-events-none" draggable={false} />
               {/* holo sweep */}
               <motion.div className="absolute inset-0 mix-blend-overlay opacity-60 pointer-events-none"
                 style={{ background: "linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.5) 50%, transparent 70%)", backgroundSize: "200% 100%" }}
@@ -144,12 +144,12 @@ function PackOpen() {
               <motion.div initial={{ y: 0, rotate: 0, opacity: 1 }} animate={{ y: -300, rotate: -35, x: -150, opacity: 0 }} transition={{ duration: 0.9, ease: "easeIn" }}
                 className="absolute inset-0 overflow-hidden"
                 style={{ clipPath: "polygon(0 0, 100% 0, 100% 48%, 0 52%)" }}>
-                <img src={PACK_IMAGES[type] ?? PACK_IMAGES.standard} alt="" className="w-full h-full object-contain" />
+                <img src={PACK_IMAGES[type] ?? PACK_IMAGES.premium} alt="" className="w-full h-full object-contain" />
               </motion.div>
               <motion.div initial={{ y: 0, rotate: 0, opacity: 1 }} animate={{ y: 300, rotate: 30, x: 150, opacity: 0 }} transition={{ duration: 0.9, ease: "easeIn" }}
                 className="absolute inset-0 overflow-hidden"
                 style={{ clipPath: "polygon(0 52%, 100% 48%, 100% 100%, 0 100%)" }}>
-                <img src={PACK_IMAGES[type] ?? PACK_IMAGES.standard} alt="" className="w-full h-full object-contain" />
+                <img src={PACK_IMAGES[type] ?? PACK_IMAGES.premium} alt="" className="w-full h-full object-contain" />
               </motion.div>
               {/* sparkles */}
               {[...Array(40)].map((_, i) => (
