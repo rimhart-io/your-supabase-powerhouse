@@ -55,7 +55,7 @@ function BattlePage() {
   const [mmStep, setMmStep] = useState(0);
   const playerCardsRef = useRef<(PokemonCard & { id: string })[]>([]);
 
-  const arena = (stageParam ?? 0) >= 7 ? arenaLava : arenaMeadow;
+  const arena = arenaMeadow;
 
   useEffect(() => { if (!loading && !user) nav({ to: "/login" }); }, [user, loading, nav]);
 
