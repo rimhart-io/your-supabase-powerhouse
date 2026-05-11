@@ -8,9 +8,8 @@ import { Button } from "@/components/ui/button";
 import { Coins, Gem } from "lucide-react";
 import { CosmeticsSection } from "@/components/CosmeticsSection";
 import { RedeemCodeForm } from "@/components/RedeemCodeForm";
-import packStandard from "@/assets/pack-standard.png";
-import packPremium from "@/assets/pack-premium.png";
-import packLegendary from "@/assets/pack-legendary.png";
+import packPremium from "@/assets/pack-premium.webp";
+import packLegendary from "@/assets/pack-legendary.webp";
 
 const EVOLUTION_STONE_PRICE = 40000;
 const EVOLUTION_STONE_KEY = "evolution_stone";
@@ -23,7 +22,6 @@ export const Route = createFileRoute("/shop")({
 });
 
 const PACKS = [
-  { type: "standard", name: "Standard Pack", price: 100, desc: "3 cards · balanced odds", img: packStandard, glow: "oklch(0.78 0.18 230)" },
   { type: "premium", name: "Premium Pack", price: 250, desc: "3 cards · better rares", img: packPremium, glow: "oklch(0.85 0.20 330)" },
   { type: "legendary", name: "Legendary Pack", price: 500, desc: "3 cards · epics + legendaries", img: packLegendary, glow: "oklch(0.90 0.20 60)" },
 ];
@@ -85,7 +83,7 @@ function Shop() {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-5">
+        <div className="grid md:grid-cols-2 gap-5 max-w-3xl">
           {PACKS.map(p => (
             <div key={p.type} className="rounded-2xl border border-border overflow-hidden bg-card flex flex-col">
               <div className="h-56 relative flex items-center justify-center bg-gradient-to-b from-background/40 to-background overflow-hidden">
